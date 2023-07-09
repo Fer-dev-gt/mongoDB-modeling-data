@@ -1,0 +1,54 @@
+use("platzi_store")
+
+
+// Definimos explicitamente nuestro Schema usando el método ".createCollection('nombreDB', SchemaInfo)" el ShcemaInfo debe ir en formato JSON
+db.createCollection('users', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['email', 'password'],
+      properties: {
+        name: {
+          bsonType: 'string'
+        },
+        last_name: {
+          bsonType: 'string'
+        },
+        email: {
+          bsonType: 'string'
+        },
+        password: {
+          bsonType: 'string'
+        }
+      }
+    }
+  }
+})
+
+
+
+// Mismo Schema pero ahora aplicamos RegEx a los campos de email y password para que tengan el formato requerido
+db.createCollection('users', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['email', 'password'],
+      properties: {
+        name: {
+          bsonType: 'string'
+        },
+        last_name: {
+          bsonType: 'string'
+        },
+        email: {
+          bsonType: 'string',
+          pattern: "((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15})"
+        },
+        password: {
+          bsonType: 'string',
+          pattern: "^.{16,40}$"
+        }
+      }
+    }
+  }
+})
