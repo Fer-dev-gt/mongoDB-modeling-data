@@ -1,0 +1,11 @@
+use("platzi_store")
+
+// Probando la flexibilad de MongoDB al agregar nuevos campos que no hemos definido, al restringirle el 'additionalProperties' no nos permitira agregar campos que no hemos registrado antes
+db.users.insertOne({
+ email: 'Fer-dev@gmail.com',
+ password: 'Azas1PasswordValida',
+ role: 'admin',
+ social_accounts: ['twitter', 'facebook']
+})
+
+

@@ -1,0 +1,46 @@
+use("platzi_store")
+
+// Con este comando nos mostrará todo el Schema, arquitectura, tipos de dato y restricciones que tienen todas las Collections que tiene nuestra Base de Datos
+db.getCollectionInfos()
+
+
+// La forma para cambiar/actualizar el Schema de una Collection sería usando el método ".runCommand()", usando la propiedad 'collMod: "collectionName"' y mandamos TODA el Schema de la Collection con los campos y tipos de valor que queremos cambiar, esto es en order para sobreescribir la arquitectura de la Collection
+db.runCommand({
+  collMod: 'users',
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['email', 'password', 'role'],
+      additionalProperties: true,
+      properties: {
+        name: {
+          bsonType: 'string'
+        },
+        last_name: {
+          bsonType: 'string'
+        },
+        email: {
+          bsonType: 'string'
+        },
+        password: {
+          bsonType: 'string',
+          pattern: "^[A-Za-z0-9]{8,}$"
+        },
+        age: {
+          bsonType: 'number',
+          minimum: 18,
+          maximum: 99
+        },
+        isSingle: {
+          bsonType: 'bool'
+        },
+        role: {
+          enum: ['customer', 'seller', 'admin']
+        }
+      }
+    }
+  }
+})
+
+
+// NOTA: Puede que sea necesario "subir los permisos" en Mongo Atlas para realizar esta acción

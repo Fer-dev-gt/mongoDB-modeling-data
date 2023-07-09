@@ -1,0 +1,76 @@
+use("platzi_store")
+
+// Le quitamos "flexibilidad" a nuestro Schema al usar la propiedad 'additionalProperties' le indicamos false para que no acepte nuevos campos no registrados cuando hacemos un 'insert'. Es algo parecido a como se comportan las tablas en una Base de Dato SQL
+db.createCollection('users', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['email', 'password', 'role'],
+      additionalProperties: false,
+      properties: {
+        name: {
+          bsonType: 'string'
+        },
+        last_name: {
+          bsonType: 'string'
+        },
+        email: {
+          bsonType: 'string'
+        },
+        password: {
+          bsonType: 'string',
+          pattern: "^[A-Za-z0-9]{8,}$"
+        },
+        age: {
+          bsonType: 'number',
+          minimum: 18,
+          maximum: 99
+        },
+        isSingle: {
+          bsonType: 'bool'
+        },
+        role: {
+          enum: ['customer', 'seller', 'admin']
+        }
+      }
+    }
+  }
+})
+
+
+// En la mayoria de caso es recomendale no colocar el "additionalProperties" como false, pero eso dependerá de nuestra lógica de negocio
+db.createCollection('users', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['email', 'password', 'role'],
+      additionalProperties: true,
+      properties: {
+        name: {
+          bsonType: 'string'
+        },
+        last_name: {
+          bsonType: 'string'
+        },
+        email: {
+          bsonType: 'string'
+        },
+        password: {
+          bsonType: 'string',
+          pattern: "^[A-Za-z0-9]{8,}$"
+        },
+        age: {
+          bsonType: 'number',
+          minimum: 18,
+          maximum: 99
+        },
+        isSingle: {
+          bsonType: 'bool'
+        },
+        role: {
+          enum: ['customer', 'seller', 'admin']
+        }
+      }
+    }
+  }
+})
