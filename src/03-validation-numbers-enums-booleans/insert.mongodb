@@ -1,0 +1,29 @@
+use("platzi_store")
+
+// Los campos requeridos seran: email, password y role que solo tiene 3 opciones: customer, seller y admin
+db.users.insertOne({
+  last_name: 'Molida',
+  email: "ferdev@gmail.com",
+  password: "----",
+  role:  "seller"
+})
+
+// Ahora le mandamos una edad con un range requerido de 18 a 99 años
+db.users.insertOne({
+  last_name: 'Molida',
+  email: "ferdev@gmail.com",
+  password: "----",
+  role:  "seller",
+  age: 19
+})
+
+
+// Ahora mandamos el campo 'isSingle' que tiene que ser "true o false" ya que el campo es boolean
+db.users.insertOne({
+  last_name: 'Molida',
+  email: "ferdev@gmail.com",
+  password: "----",
+  role:  "seller",
+  age: 19,
+  isSingle: true
+})
