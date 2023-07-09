@@ -1,0 +1,11 @@
+use("platzi_store")
+
+// Ingreamos campos pero con la diferencia que el "password" debe cumplir con un patrón que establecimos con RegEx (minimo de 8 caracteres, tiene que tener mayusculas y minusculas y un número)
+db.users.insertOne({
+ email: 'Fer-dev@gmail.com',
+ password: 'Azas1PasswordValida',
+ role: 'admin'
+})
+
+
+// NOTA: No es seguro guardar la contraseñas a simple vista en un Document hay que encriptarlas entre otros pasos 
