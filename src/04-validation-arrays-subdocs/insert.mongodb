@@ -1,0 +1,31 @@
+use("platzi_store")
+
+// El Array de sizes no es obligatorio
+db.products.insertOne({
+  name: 'Camiseta',
+})
+
+
+// El Array de sizes no permite valores repetidos y que no sean tipo String
+db.products.insertOne({
+  name: 'Camiseta',
+  sizes: ['L', 'XL']
+})
+
+
+// El número minimo de valores dentro del Array es 1
+db.products.insertOne({
+  name: 'Camiseta',
+  sizes: ['XL']
+})
+
+
+// Trabajando con SubDocuments, definimos en el Schema que el 'name' es un campo obligatorio del SubDocument
+db.products.insertOne({
+  name: 'Camiseta',
+  sizes: ['XL'],
+  category: {
+    name: 'name category',
+    image: 'imagen234-343-23.jpg'
+  }
+})

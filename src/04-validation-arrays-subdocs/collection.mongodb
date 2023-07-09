@@ -1,0 +1,36 @@
+use("platzi_store")
+
+// Definiendo un Schema con Datos no Primitivos como Arrays y SubDocuments (Objetos anidados), el array sera tipo String, los valores dentro del Array seran String, no se pueden tener items repetidos y el minimo de items en el Array es de 1. Cuando definimos el Schema de un SubDocument es como "volver" a definir el Scheme de otro Document
+db.createCollection('products', {
+  validator: {
+    $jsonSchema: {
+      bsonType: 'object',
+      required: ['name'],
+      properties: {
+        name: {
+          bsonType: 'string'
+        },
+        sizes: {
+          bsonType: 'array',
+          minItems: 1,
+          uniqueItems: true,
+          items: {
+            bsonType: 'string'
+          }
+        },
+        category: {
+          bsonType: 'object',
+          required: ['name'],
+          properties: {
+            name: {
+              bsonType: 'string',
+            },
+            image: {
+              bsonType: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
+})
