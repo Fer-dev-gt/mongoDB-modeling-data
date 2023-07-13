@@ -1,0 +1,35 @@
+// Creando relaciones "1 to N Embedded" con varias ordenes de compra relacionas a un mismo usuario
+use("platzi_store")
+
+// Registramos la primera orden de compra con un Array de productos
+db.orders.insertOne({
+  user_id: ObjectId('64af573880136dfffa930c83'),
+  date: '2022-02-22',
+  items: [                                                            // Forma de relación "1 to 1 Embedded"
+    {
+      name: 'Camiseta',
+      price: 120,
+      qty: 1
+    },
+    {
+      name: 'Patanlón',
+      price: 200,
+      qty: 2
+    },
+  ]
+})
+
+
+
+// Una nueva orden de compra que esta enlazado el mismo usuario
+db.orders.insertOne({
+  user_id: ObjectId('64af573880136dfffa930c83'),                      // Esta orden esta enlazada al mismo usuario
+  date: '2022-02-22',
+  items: [                                                
+    {
+      name: 'Juguete',
+      price: 120,
+      qty: 4
+    }
+  ]
+})

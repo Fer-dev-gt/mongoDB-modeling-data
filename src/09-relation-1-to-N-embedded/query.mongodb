@@ -1,0 +1,12 @@
+use("platzi_store")
+db.users.find()
+
+
+// Muestra las ordenes que estan relacionadas "1 to N Embedded"
+db.orders.find()
+
+
+// Podemos hacer consultas más especificas de todas las relaciones "1 to N Embedded"
+db.orders.find({"items.qty": 4})
+
+db.orders.find({"items.qty": { $gte: 3}})
