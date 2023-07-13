@@ -1,0 +1,21 @@
+use("platzi_store")
+
+// Creando relaciones 1 a 1 "Embedded" al agregar SubDocuments con datos de direcciones
+db.users.insertOne({
+ email: 'Melissa@gmail.com',
+ password: 'Azas1PasswordValida',
+ role: 'admin',
+ social_accounts: ['twitter', 'facebook'],
+ address: {
+  street: 'Calle 2',
+  city: 'Cali',
+  zip: '11022'
+ },
+ shipping_address: {
+  street: 'Calle 7',
+  city: 'Cali',
+  zip: '22011'
+ }
+})
+
+

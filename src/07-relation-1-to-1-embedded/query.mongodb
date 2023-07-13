@@ -1,0 +1,14 @@
+use("platzi_store")
+db.users.find()
+
+
+// Podemos hacer preguntas y consultas con base a los SubDocuments que están "Embedded"
+db.users.find({
+  "address.city": "Bototá"                              // Como le estamos haciendo una consulta al SubDocument tenemos que escibir el campo que buscamos con . Ej: "address.city"
+})
+
+
+db.users.find({
+  "address.city": "Bototá"                              
+}).count()
+
