@@ -1,0 +1,22 @@
+// 
+use("platzi_store")
+
+// Insertamos una nueva orden a un usuario diferente
+db.orders.insertOne({
+  user_id: ObjectId('64af57507dea582b50d5e2de'),                      // Esta ya es una referencia a otro Document
+  date: '2022-12-12',
+  items: [                                                            
+    {
+      name: 'Zapatos',
+      price: 120,
+      qty: 1
+    },
+    {
+      name: 'Sombrero',
+      price: 90,
+      qty: 1
+    },
+  ]
+})
+
+

@@ -1,0 +1,65 @@
+// Varias consultas donde pedimos data de Documents que tienen relación '1 to N' Referenciada
+use("platzi_store")
+db.orders.find()
+
+
+// Podemos hacer busquedas de las ordenes que estan "referenciadas" a un usuario en especifico
+db.orders.find( {user_id: ObjectId('64af57507dea582b50d5e2de')}).count()
+
+
+// Contamos las ordenes de compra que tiene el otro usuario
+db.orders.find( {user_id: ObjectId('64af573880136dfffa930c83')}).count()
+
+
+// Para traer la información del usuario que esta en otro Document refenciada podemos hacer 2 consultas
+db.orders.find( {user_id: ObjectId('64af573880136dfffa930c83')})
+db.users.findOne( {_id: ObjectId('64af573880136dfffa930c83')})
+
+
+// Pero es más eficiente usar "Aggregation Framework" con el Operator $lookup y ".aggregate()" para hacer solo una consulta, este query va a traer todas las ordenes junto con la información del usuario que la hizo
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: 'users',                                        // Le decimos a que Document nos enlazamos 
+      localField: 'user_id',                                // El nombre del campo que esta enlazado con el otro Document
+      foreignField: '_id',                                  // En el Document 'users' el id que estará referenciado tiene otro nombre
+      as: 'user_detalles'                                   // Le decimos como se va a llamar el campo que va a traer la información referenciada
+    }
+  }
+])
+
+
+// Para traer toda esta información en lazada pero solo de una orden en especifico podemos usar el Operator $match y le mandamos el _id de la orden que queremos buscar
+db.orders.aggregate([
+  {
+    $match: {
+      _id: ObjectId('64af6f7e305cebf37dafb6c4')
+    }
+  },
+  {
+    $lookup: {
+      from: 'users',
+      localField: 'user_id',
+      foreignField: '_id',
+      as: 'user_datalles'
+    }
+  }
+])
+
+
+// También podemos hacer esta consultas invirtiendo el orden de los Documents para que se muestre alreves
+db.users.aggregate([
+  {
+    $match: {
+      _id: ObjectId('64af573880136dfffa930c83')             // Uso el id del usuario que quiero mostrar sus ordenes
+    }
+  },
+  {
+    $lookup: {
+      from: 'orders',
+      localField: '_id',
+      foreignField: 'user_id',
+      as: 'orden_detalles'
+    }
+  }
+])
