@@ -1,0 +1,19 @@
+use("platzi_store")
+
+// Creando Collections con Documents que tienen relación "1 a 1" referenciar (Casos muy particulares y poco frecuentes)
+db.stores.insertOne({
+ storeId: 'ST001',
+ name: 'Ferdev Store',
+ address: 'Calle 2'
+})
+
+
+// Estos 2 Documents estan relacionados por la 'storeId'
+db.store_details.insertOne({
+ storeId: 'ST001',
+ description: 'This is the store description, yay',
+ manager: {
+  email: 'ferdev@notgmail.com',
+  cellphone: '1234-4321'
+ }
+})

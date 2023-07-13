@@ -1,0 +1,38 @@
+// Las relaciones "1 a 1" referenciadas solo deben de usarse cuando el Document esta muy pesado (limite de 16 MB) y nos vemos obligados a partir la información en otro Document y hacerle una referencia por el ID
+use("platzi_store")
+
+// Buscamos la información de un Store con el ID especificado
+db.stores.findOne({storeId: 'ST001'})
+
+// Si buscamos la información relacionada con la tienda de arribo tenemos que usar el ID de la store
+db.store_details.findOne({storeId: 'ST001'})
+
+
+// Para no tener que hacer 2 consultas, podemos usar el 'Aggregation Framework' con el Operator $loopuk que autorelaciona la información proporcionada, la data la tenemos que enviar dentro de un Array []
+db.stores.aggregate([
+  {
+    $lookup: {
+      from: 'store_details',                                // Le decimos a que Collection tien que ir a buscar la data relacionada
+      localField: 'storeId',                                // El campo del Document principal y que se va unir/referenciar con el SubDocument correspondiente
+      foreignField: 'storeId',                              // El campo del Subdocument que se relaciona el Document principal
+      as: 'detail_of_store_personalizado'                   // Acá le ponemos nombre al 'nuevo' campo que va a traer la data relacionada al Document principal
+    }
+  }
+])
+
+
+
+// Agregando otro bloque al '.aggregate()' podemos obtener el detalle como un objeto en vez de un arreglo y visualizarlo más facilmente
+db.stores.aggregate([
+  {
+    $lookup: {
+      from: 'store_details',                                
+      localField: 'storeId',                                
+      foreignField: 'storeId',                              
+      as: 'detail_of_store_personalizado'                   
+    }
+  },
+  {
+		$unwind: '$detail_of_store_personalizado'
+	}
+])
