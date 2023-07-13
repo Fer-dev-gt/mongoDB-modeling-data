@@ -1,4 +1,4 @@
-// 
+// Insertamos datos que estaran luego referenciados a otro Document
 use("platzi_store")
 
 // Insertamos una nueva orden a un usuario diferente
