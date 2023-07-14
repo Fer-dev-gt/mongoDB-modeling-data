@@ -1,0 +1,7 @@
+// Cuando aplicamos la "Desnormalización" estamos optimizando el funcionamiento de nuestra DB al agregar 'Datos redundantes' y así no tener que hacer más consultas 
+use("platzi_store")
+db.products.find()
+
+
+// Traemos una Orden en especifico que ya tiene 'Desnormalizado' unos datos que son redundantes y asi no tener que hacer otra consulta para traer esa data
+db.orders.findOne({ _id: ObjectId('64b0de3bcb4428f6bc2a873f')})

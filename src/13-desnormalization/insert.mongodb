@@ -1,0 +1,25 @@
+// Aplicando la "Desnormalización", nos da la ventaja de preservar los 'datos historicos' que se preservan de ese momento incluso cuando se actualizan los valores en la Entidad principal
+use("platzi_store")
+
+
+// Intencionalmete 'Repetimos' ciertos datos de los 'items' que son 'products' y le agregamos su referencia con su Id para que luego lo podamos consultar
+db.orders.insertOne({
+  user_id: ObjectId('64af57507dea582b50d5e2de'),                      
+  date: '2022-12-12',
+  items: [                                                            
+    {
+      name: 'Product 1',
+      price: 12,
+      qty: 1,
+      product_id: ObjectId('64af974bee890d225f626e65')
+    },
+    {
+      name: 'Product 2',
+      price: 45,
+      qty: 2,
+      product_id: ObjectId('64af974bee890d225f626e66')
+    },
+  ]
+})
+
+
