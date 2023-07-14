@@ -1,0 +1,40 @@
+// Vamos a agregar Dinamicamente los productos a nuestra orden de compra para que haga los calculos del total de manera más eficiente
+use("platzi_store")
+
+
+// Hacemos Update a esta orden de compra para agregarle dinamicamente un producto y calcular el total
+db.orders.updateOne(
+  { _id: ObjectId('64b0e24925d2b9e8a9eb0b44')},
+  {
+    $push: {                                                // Vamos a ingresar la información del producto en nuestro Array de 'items'
+      items: {
+        name: 'Product 1',
+        price: 12,
+        qty: 1,
+        product_id: ObjectId('64af974bee890d225f626e65')
+      },
+    },
+    $inc: {                                                 // Para actualizar el total vamos a usar el Operator $inc y hacemos un 'precalculo manual' con los datos de los items multiplicando el precio del producto con la cantidad que comprará el cliente
+      total: 12 * 1                                         // Realizamos el precalculo del total
+    }
+  }
+)
+
+
+// Ingresamos otro 'item' a la misma orden de compra y haremos que se actualiza el total en esta fase de escritura para no hacerlo cada vez que consultemos la información con una lectura y ahorrarnos un calcula innecesario
+db.orders.updateOne(
+  { _id: ObjectId('64b0e24925d2b9e8a9eb0b44')},
+  {
+    $push: {
+      items: {
+        name: 'Product 2',
+        price: 45,
+        qty: 3,
+        product_id: ObjectId('64af974bee890d225f626e66')
+      },
+    },
+    $inc: {                                                 // Incrementamos/actualizamos el valor de nuestro campo 'total'
+      total: 45 * 3                                         // Realizamos otro precalculo
+    }
+  }
+)

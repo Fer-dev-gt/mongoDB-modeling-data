@@ -1,0 +1,7 @@
+// Revisaremos como se van actualizando los valores del total al aplicar 'Computed Pattern'
+use("platzi_store")
+db.products.find()
+
+
+// Cada vez que agregemos un nuevo item a esta orden con un Update nos daremos cuenta que el total ha sido actualizado de manera eficiente
+db.orders.findOne({ _id: ObjectId('64b0e24925d2b9e8a9eb0b44')})

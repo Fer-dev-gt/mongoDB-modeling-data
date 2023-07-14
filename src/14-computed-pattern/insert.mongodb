@@ -1,0 +1,14 @@
+// Aplicaremos un 'Computed Pattern' para ir haciendo 'pre-calculos' cuando hacemos escritura y asi ahorrarnos esos calculos cuando hagamos una lectura de datos
+use("platzi_store")
+
+
+db.orders.insertOne({
+  user_id: ObjectId('64af57507dea582b50d5e2de'),                      
+  date: '2022-12-12',
+  total: 0,                                               // Ingreamas un Nuevo campo llamado 'total' que va a ir sumando dinamicamente el precio * unidad de cada item/product que vamos agregando
+  items: []                                               // Ingresamos primero el Array de items/products vacío para luego irlos agregando Dinamicamente
+})  
+
+// Anotaremos el id de esta nueva orden para luego hacerle un Update: 64b0e24925d2b9e8a9eb0b44
+
+
