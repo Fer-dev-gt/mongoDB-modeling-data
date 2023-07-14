@@ -1,0 +1,23 @@
+// Insertamos datos para tener Collections con relaciones "N to N"
+use("platzi_store")
+
+
+// Para crear una relación "N to N" agregamos los ids de los 'products' en un Array con el ObjectId que hacer referencia a esos productos, se pueden usar el mismo id en varios Documents
+db.stores.insertMany([
+  {
+    name: 'Store 1',
+    products_ids: [
+      ObjectId('64aa51a5f49ae301401e502c'),
+      ObjectId('64af974bee890d225f626e65')
+    ]
+  },
+  {
+    name: 'Store 2',
+    products_ids: [
+      ObjectId('64aa51a5f49ae301401e502c'),
+      ObjectId('64af974bee890d225f626e65'),
+      ObjectId('64af974bee890d225f626e66'),
+      ObjectId('64af974bee890d225f626e67')
+    ]
+  }
+])

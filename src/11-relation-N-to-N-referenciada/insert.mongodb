@@ -1,0 +1,24 @@
+// Las relaciones "N to N" son siempre Referenciadas
+use("platzi_store")
+
+
+// Insertamos los Documents de los 'Products' que tiene que tener su propia identidad la cual vamos a referencias despues en forma "N to N"
+db.products.insertMany([
+  {
+    name: 'Product 1',
+    sizes: ['L', 'M'],
+    price: 12
+  },
+  {
+    name: 'Product 2',
+    sizes: ['L'],
+    price: 45
+  },
+  {
+    name: 'Product 4',
+    sizes: ['S', 'L', 'M'],
+    price: 60
+  }
+])
+
+
