@@ -1,0 +1,15 @@
+// Vamos crear "Referencias Circulares o Bidireccionales"
+use("platzi_store")
+
+
+// Vamos a hacerle Update a un Document de 'products' para que tenga referenciada las 'stores' en donde esta disponible
+db.products.updateOne(
+  { _id: ObjectId('64af974bee890d225f626e66')},                 // Id del 'product' que vamos a actualizar
+  {
+    $set: {                                                     // Utilizamos el Operator 'set' para modificar el product
+      stores_ids: [                                             // Dentro de un Array voy a referenciar todas las tiendas en la cual este product esta disponible
+        ObjectId('64af98ad270f0ac2987983c3')
+      ]
+    }
+  }
+)

@@ -1,0 +1,25 @@
+// Consultamos los ids de los 'products'
+use("platzi_store")
+db.products.find()
+
+
+// Consultamso los ids de las 'stores'
+db.stores.find()
+
+
+// El id del producto de abajo se encuentra disponible en el store de abajo
+// 64af974bee890d225f626e65 -> product
+// 64af5940e89f0cea075e3866 -> store
+
+
+// Traemos los productos y mostramos las tiendas que tienen 'referenciadas'
+db.products.aggregate([
+  {
+    $lookup: {
+      from: 'stores',
+      localField: 'stores_ids',
+      foreignField: '_id',
+      as: 'stores_detalles'
+    }
+  }
+])
